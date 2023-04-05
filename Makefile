@@ -1,5 +1,5 @@
 .PHONY: build test coverage
-cairo_files = $(shell find . -type f -name "*.cairo")
+cairo_files = $(shell find ./src ./tests -type f -name "*.cairo")
 
 build: check
 	$(MAKE) clean
@@ -36,8 +36,8 @@ test-no-log: build-sol
 test-integration: build-sol
 	poetry run pytest tests/integration --log-cli-level=INFO -n logical
 
-test-unit: build-sol
-	poetry run pytest tests/unit --log-cli-level=INFO
+test-unit:
+	poetry run pytest tests/src --log-cli-level=INFO
 
 run-test-log: build-sol
 	poetry run pytest -k $(test) --log-cli-level=INFO -vvv
@@ -56,8 +56,8 @@ deploy: build
 
 format:
 	poetry run cairo-format -i ${cairo_files}
-	poetry run black tests/.
-	poetry run isort tests/.
+	poetry run black tests/. scripts/.
+	poetry run isort tests/. scripts/.
 	poetry run autoflake . -r
 
 format-check:

@@ -3,12 +3,12 @@
 </p>
 <div align="center">
   <h3 align="center">
-  EVM interpreter written in Cairo, a sort of ZK-EVM emulator, leveraging STARK
+  zkEVM written in Cairo.
   proof system.
   </h3>
 </div>
 
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/sayajin-labs/kakarot/test.yml?branch=main)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/sayajin-labs/kakarot/ci.yml?branch=main)
 ![GitHub](https://img.shields.io/github/license/abdelhamidbakhta/kakarot?style=flat-square&logo=github)
 ![GitHub contributors](https://img.shields.io/github/contributors/abdelhamidbakhta/kakarot?logo=github&style=flat-square)
 ![GitHub top language](https://img.shields.io/github/languages/top/abdelhamidbakhta/kakarot?style=flat-square)
@@ -20,11 +20,16 @@
 
 <div align="center">
 
-**Kakarot** is an Ethereum Virtual Machine written in Cairo. It means it can be
-deployed on StarkNet, a layer 2 scaling solution for Ethereum, and run any EVM
-bytecode program. Hence, Kakarot can be used to run Ethereum smart contracts on
-StarkNet. Kakarot is the super sayajin zkEVM! Why? Because:
-`It's over 9000!!!!!`.
+Kakarot is a zkEVM written in Cairo. It aims to allow users to leverage the
+scaling benefits of validity rollups while maintaining compatibility with the
+Ethereum ecosystem. Therefore, Kakarot can be used to run Ethereum smart
+contracts on Starknet.
+
+We strongly believe the CairoVM will provide the best zero-knowledge toolbox in
+the coming years and that the Ethereum network effect will remain dominant in
+the meantime. We present to developers an abstraction layer they're familiar
+with: the EVM. Build and deploy as if you were working on Ethereum, be forward
+compatible with the future of zero-knowledge.
 
 It is a work in progress, and it is not ready for production.
 
@@ -37,19 +42,9 @@ It is a work in progress, and it is not ready for production.
 
 </div>
 
-![](docs/img/kakarot.gif)
-
 ## Supported opcodes
 
-```mermaid
-%%{init: {'theme': 'forest', 'themeVariables': { 'darkMode': 'false'}}}%%
-
-pie title Kakarot EMV opcodes support (142 / 142)
-    "Supported" : 142
-    "Not supported" : 0
-```
-
-Here is the list of supported opcodes: [opcodes](docs/supported_opcodes.md)
+We support 100% of EVM [opcodes](docs/supported_opcodes.md).
 
 ## Documentation
 
@@ -210,7 +205,7 @@ Test architecture is the following:
   function with forged bytecode
 - tests/integration/solidity_contracts contains python tests for solidity
   contracts that are compiled, deployed on kakarot local node and interacted
-  with kakarot execute_at_address()
+  with kakarot eth_call() and invoke()
 - the project also contains some forge tests (e.g. `PlainOpcodes.t.sol`) whose
   purpose is to test easily the solidity functions meant to be tested with
   kakarot, i.e. quickly making sure that they return the expected output so that
